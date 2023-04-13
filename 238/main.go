@@ -35,4 +35,11 @@ func main() {
 
 	myStack.Push(five)
 	fmt.Println("pushed ", myStack.Peek(), " on top")
+
+	fmt.Println("popped ", myStack.Pop().Peek(), " on top")
+	fmt.Println("popped ", myStack.Pop().Peek(), " on top")
+
+	fmt.Println("popped ", myStack.Pop().Peek(), " on top")
+	fmt.Println("popped ", myStack.Pop().Peek(), " on top")
+	//fmt.Println("popped ", myStack.Pop().Peek(), " on top")
 }

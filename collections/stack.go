@@ -10,14 +10,14 @@ type element[T any] struct {
 	Previous *element[T]
 }
 
-type stack[T any] struct {
+type Stack[T any] struct {
 	head   *element[T]
 	tail   *element[T]
 	length int
 	mutex  sync.Mutex
 }
 
-func (s *stack[T]) Push(data T) {
+func (s *Stack[T]) Push(data T) *Stack[T] {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -33,31 +33,36 @@ func (s *stack[T]) Push(data T) {
 	}
 
 	s.length++
+	return s
 }
 
-func (s *stack[T]) Peek() T {
+func (s *Stack[T]) Peek() T {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	return s.tail.Data
 }
 
-func (s *stack[T]) Pop() {
+func (s *Stack[T]) Pop() *Stack[T] {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
 	if s.length == 0 {
-		return
+		return s
 	}
 	if s.length == 1 {
 		s.head = nil
 		s.tail = nil
+		s.length--
+		return s
 	}
+
 	s.tail = s.tail.Previous
 	s.tail.Next = nil
 	s.length--
+	return s
 }
 
-func New[T any](T datum) *stack[T] {
-	return &stack[T]{head: nil, tail: nil, length: 0, mutex: sync.Mutex{}}
+func NewStack[T any](datum T) *Stack[T] {
+	return (&Stack[T]{head: nil, tail: nil, length: 0, mutex: sync.Mutex{}}).Push(datum)
 }
