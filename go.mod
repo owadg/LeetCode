@@ -1,3 +1,3 @@
-module example.com
+module github.com/owadg/LeetCode
 
 go 1.19

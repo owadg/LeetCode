@@ -1,6 +1,6 @@
 // this is an implementation of a LIFO data structure
 // the goal as well is to keep it thread-safe and generic
-package mystack
+package collections
 
 import "sync"
 
@@ -58,6 +58,6 @@ func (s *stack[T]) Pop() {
 	s.length--
 }
 
-func New[T any]() *stack[T] {
+func New[T any](T datum) *stack[T] {
 	return &stack[T]{head: nil, tail: nil, length: 0, mutex: sync.Mutex{}}
 }
