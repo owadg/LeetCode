@@ -13,7 +13,7 @@ type element[T any] struct {
 type Stack[T any] struct {
 	head   *element[T]
 	tail   *element[T]
-	length int
+	Length int
 	mutex  sync.Mutex
 }
 
@@ -23,7 +23,7 @@ func (s *Stack[T]) Push(data T) *Stack[T] {
 
 	elem := &element[T]{Data: data}
 
-	if s.length == 0 {
+	if s.Length == 0 {
 		s.head = elem
 		s.tail = elem
 	} else {
@@ -32,37 +32,45 @@ func (s *Stack[T]) Push(data T) *Stack[T] {
 		s.tail = elem
 	}
 
-	s.length++
+	s.Length++
 	return s
 }
 
-func (s *Stack[T]) Peek() T {
+func (s *Stack[T]) Peek() *T {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
-	return s.tail.Data
+	if s.Length > 0 {
+		return &s.tail.Data
+	} else {
+		return nil
+	}
 }
 
 func (s *Stack[T]) Pop() *Stack[T] {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
-	if s.length == 0 {
-		return s
+	if s.Length == 0 {
+		return nil
 	}
-	if s.length == 1 {
+	if s.Length == 1 {
 		s.head = nil
 		s.tail = nil
-		s.length--
+		s.Length--
 		return s
 	}
 
 	s.tail = s.tail.Previous
 	s.tail.Next = nil
-	s.length--
+	s.Length--
 	return s
 }
 
-func NewStack[T any](datum T) *Stack[T] {
-	return (&Stack[T]{head: nil, tail: nil, length: 0, mutex: sync.Mutex{}}).Push(datum)
+func (s *Stack[T]) IsEmpty() bool {
+	return s.Length == 0
+}
+
+func NewStack[T any]() *Stack[T] {
+	return (&Stack[T]{head: nil, tail: nil, Length: 0, mutex: sync.Mutex{}})
 }
