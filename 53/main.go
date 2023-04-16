@@ -20,6 +20,17 @@ func maxSubArray(nums []int) int {
 	// when merging, the subarray is either both combined, or one or the other, depending on the sum
 	// if the sum is negative, we choose the least negative one
 	// if the sum is positive, it's both
+	// I dont think this strategy works, because it assumes they can always be added
+
+	//maybe do above strat, but with an extra bool saying if it can be merged or if it has to be taken by itself
+	// algo
+	// recurse into base case
+	// get sum
+	// merge - if greater is on
+
+	//okay lets just think of an iterative algo first
+
+	//
 
 	result := make([]int, len(nums))
 	
@@ -38,4 +49,5 @@ func maxSubArray(nums []int) int {
 func main() {
 	maxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4})
 	maxSubArray([]int{5,4,-1,7,8})
+	maxSubArray([]int{0,-3,1,1})
 }
