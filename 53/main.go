@@ -30,24 +30,37 @@ func maxSubArray(nums []int) int {
 
 	//okay lets just think of an iterative algo first
 
+	// okay so I spoiled myself with Kadane's algorithm
+	// lets justify it in my head
+	// lets say we have [0,-3,1,1]
+	// at the nth index, is it true that the largest maximum subarray is either to the left, or at this index?
+	// well, yes, of course.
 	//
 
-	result := make([]int, len(nums))
+
 	
-	var sum int = 0
-	for _, num := range result {
-		fmt.Println(num)
-		sum += num
+	var globalMaxSum int = nums[0]
+
+	localMaxSum := 0
+	for i := range nums {
+		// these statements give the maximum subarray at the ith index
+		if localMaxSum > 0 {
+			localMaxSum += nums[i]
+		} else {
+			localMaxSum = nums[i]
+		}
+
+		// these statements record the largest sum
+		if globalMaxSum < localMaxSum {
+			globalMaxSum = localMaxSum
+		}
 	}
 
-	fmt.Println("input", nums)
-	fmt.Println("resulting subarray", result)
-	fmt.Println("sum", sum)
-	return sum
+	return globalMaxSum
 }
 
 func main() {
-	maxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4})
-	maxSubArray([]int{5,4,-1,7,8})
-	maxSubArray([]int{0,-3,1,1})
+	fmt.Println(maxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4}))
+	fmt.Println(maxSubArray([]int{5,4,-1,7,8}))
+	fmt.Println(maxSubArray([]int{0,-3,1,1}))
 }
