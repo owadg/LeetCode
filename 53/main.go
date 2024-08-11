@@ -22,7 +22,7 @@ func maxSubArray(nums []int) int {
 }
 
 func main() {
-	maxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4})
-	maxSubArray([]int{5,4,-1,7,8})
-	maxSubArray([]int{0,-3,1,1})
+	fmt.Println(maxSubArray([]int{-2,1,-3,4,-1,2,1,-5,4}))
+	fmt.Println(maxSubArray([]int{5,4,-1,7,8}))
+	fmt.Println(maxSubArray([]int{0,-3,1,1}))
 }
